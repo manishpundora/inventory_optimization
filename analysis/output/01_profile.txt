@@ -1,0 +1,77 @@
+Sheets found: ['Year 2009-2010', 'Year 2010-2011']
+  Year 2009-2010: 525,461 rows x 8 cols
+  Year 2010-2011: 541,910 rows x 8 cols
+
+Combined: 1,067,371 rows
+Columns: ['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country']
+
+--- RAW DATA QUALITY ---
+Date range            : 2009-12-01 07:45:00 to 2011-12-09 12:50:00
+Missing Description   : 4,382
+Missing CustomerID    : 243,007 (22.8%)
+Exact duplicate rows  : 34,335
+Quantity <= 0         : 22,950
+UnitPrice <= 0        : 6,207
+Cancellation lines    : 19,494 (1.83% of rows)
+Distinct StockCodes   : 5,305
+Distinct countries    : 43
+
+Top non-product codes removed:
+StockCode
+POST            2122
+DOT             1446
+M               1426
+C2               282
+D                177
+S                104
+BANK CHARGES     102
+ADJUST            67
+AMAZONFEE         43
+DCGS0058          31
+GIFT_0001_20      29
+GIFT_0001_30      29
+DCGSSGIRL         25
+DCGSSBOY          23
+PADS              19
+
+--- CLEANING AUDIT TRAIL ---
+start                             1,067,371  (+0)
+drop exact duplicates             1,033,036  (-34,335)
+drop cancellations                1,013,932  (-19,104)
+keep product codes only           1,009,142  (-4,790)
+drop non-positive qty/price       1,003,214  (-5,928)
+drop missing description          1,003,214  (+0)
+Retained 94.0% of original rows
+
+--- CLEANED DATASET ---
+Rows                  : 1,003,214
+Date range            : 2009-12-01 to 2011-12-09 (738 days)
+Distinct SKUs         : 4,707
+Distinct invoices     : 39,516
+Distinct customers    : 5,852
+Total revenue         : GBP 19,642,692
+Median line value     : GBP 10.08
+
+Revenue share by country (top 10):
+Country
+United Kingdom    85.53
+EIRE               3.17
+Netherlands        2.80
+Germany            1.95
+France             1.58
+Australia          0.85
+Spain              0.50
+Switzerland        0.48
+Sweden             0.44
+Denmark            0.34
+
+Top 20% of SKUs account for 78.0% of revenue
+
+Revenue by weekday (GBP):
+Mon    3416200.0
+Tue    3879934.0
+Wed    3375098.0
+Thu    4010017.0
+Fri    3166467.0
+Sat       9803.0
+Sun    1785174.0

@@ -1,0 +1,136 @@
+--- POLICY WINDOW ---
+From 2010-12-10 to 2011-12-09
+Rows in window             : 498,239
+SKUs appearing in window   : 3,748
+Trading weeks              : 52
+SKUs with >=10 active weeks: 2,885 (77.0% of window SKUs)
+SKUs selling in fewer than 10 of 52 weeks are one-off or discontinued
+lines. They do not need a standing reorder policy and are excluded.
+
+--- LUMPY-DEMAND SKUs HELD OUT (single week > 40% of annual units) ---
+SKUs held out              : 186 (6.4% of candidates)
+Revenue they represent     : GBP 310,325 (3.3%)
+
+Top 10 by revenue:
+                                 Description  AnnualUnits  BiggestWeek  ShareInOneWeek  Revenue
+StockCode                                                                                      
+23166         MEDIUM CERAMIC TOP STORAGE JAR        78033        74215            95.1  81701.0
+21623           VINTAGE UNION JACK MEMOBOARD         2237         1015            45.4  16279.0
+21955      DOORMAT UNION JACK GUNS AND ROSES         1204          511            42.4   7332.0
+48111                  DOORMAT 3 SMILEY CATS         1118          523            46.8   7180.0
+23543                    WALL ART KEEP CALM          1236          709            57.4   7011.0
+22508               DOORSTOP RETROSPOT HEART         1551          763            49.2   6338.0
+23113                  PANTRY CHOPPING BOARD         1154          964            83.5   5868.0
+22783       SET 3 WICKER OVAL BASKETS W LIDS          456          200            43.9   5834.0
+22349           DOG BOWL CHASING BALL DESIGN         1351          756            56.0   5318.0
+22834            HAND WARMER BABUSHKA DESIGN         3959         2006            50.7   5101.0
+
+SKUs entering statistical policy: 2,699
+
+--- ABC CLASSIFICATION ---
+     SKUs    Revenue  SKU%  Revenue%
+ABC                                 
+A     739  7274512.4  27.4      80.0
+B     826  1367027.5  30.6      15.0
+C    1134   455230.7  42.0       5.0
+
+--- XYZ: TEXTBOOK CUT POINTS (CV 0.5 / 1.0) ---
+XYZ_textbook
+X       7
+Y     371
+Z    2321
+Median CV across all SKUs  : 1.65
+87% of SKUs land in Z. Reported for comparability, not used for policy.
+
+--- XYZ: EMPIRICAL TERTILES (CV cut at 1.36 and 1.95) ---
+     SKUs  MedianCV     Revenue   SKU%  Revenue%
+XYZ                                             
+X     900      1.04  5604339.50  33.35     61.61
+Y     899      1.65  2352640.79  33.31     25.86
+Z     900      2.39  1139790.36  33.35     12.53
+
+--- 9-CELL MATRIX (SKU counts) ---
+XYZ    X    Y    Z
+ABC               
+A    460  192   87
+B    301  291  234
+C    139  416  579
+
+--- 9-CELL MATRIX (revenue share %) ---
+XYZ      X      Y     Z
+ABC                    
+A    54.90  18.61  6.47
+B     5.80   5.26  3.96
+C     0.91   1.99  2.10
+
+--- WHAT THE FLAT 4-WEEK RULE ACTUALLY DELIVERS ---
+Median cycle service       : 95.6%
+SKUs below 90% service     : 627 (23.2%)
+SKUs above 99% service     : 692 (25.6%)
+One flat buffer does not produce one service level. It under-protects the
+erratic lines and over-protects the steady ones at the same time.
+
+Service spread within each ABC class under the flat rule:
+      mean    25%    50%    75%
+ABC                            
+A    0.973  0.959  0.992  0.999
+B    0.950  0.920  0.966  0.992
+C    0.917  0.874  0.925  0.959
+
+--- HEAD TO HEAD (annual, GBP unless stated) ---
+                     Flat 4-week rule  ABC-differentiated    Change  Change%
+SafetyStockValue            349875.79           303746.10 -46129.69   -13.18
+AvgInventoryValue           736045.31           689915.62 -46129.69    -6.27
+AnnualHoldingCost           184011.33           172478.90 -11532.42    -6.27
+AnnualUnitsShort             17856.58            12064.12  -5792.45   -32.44
+AnnualRevenueAtRisk          41502.90            22886.23 -18616.68   -44.86
+WeightedFillRate                 1.00                1.00      0.00     0.21
+
+--- WHERE THE BUFFER MOVES ---
+     Flat rule  Differentiated   Change  Change%  RevenueShare%
+ABC                                                            
+A     279788.9        239325.3 -40463.6    -14.5           80.0
+B      52578.0         49191.3  -3386.7     -6.4           15.0
+C      17508.9         15229.5  -2279.4    -13.0            5.0
+
+--- SERVICE OUTCOME BY CLASS ---
+     Flat rule  Differentiated
+ABC                           
+A        99.54           99.77
+B        99.55           99.70
+C        99.62           99.56
+
+--- REVENUE AT RISK FROM STOCKOUTS, BY CLASS ---
+     Flat rule  Differentiated  Avoided
+ABC                                    
+A      33629.0         16735.0  16893.0
+B       6135.0          4154.0   1981.0
+C       1739.0          1997.0   -258.0
+
+--- EQUAL-BUDGET REALLOCATION TEST ---
+Safety stock budget held at GBP 349,876
+Implied A-class service    : 0.992
+Weighted fill rate, flat   : 99.5438%
+Weighted fill rate, realloc: 99.8816%
+Revenue at risk, flat      : GBP 41,503
+Revenue at risk, realloc   : GBP 10,772
+
+--- SENSITIVITY (27 scenarios) ---
+Safety stock change range  : -38.6% to 22.8%
+Fill rate gain range       : -0.14pp to 2.08pp
+Scenarios improving fill   : 18 of 27
+Scenarios avoiding risk    : 18 of 27
+
+--- SAMPLE OF THE PROPOSED POLICY: TOP 10 CLASS A SKUs ---
+                                  Description Segment  AnnualUnits    CV     EOQ  SafetyStock  SS_FlatRule     ROP
+StockCode                                                                                                         
+22197                    SMALL POPCORN HOLDER      AX        55442  1.05  3142.0      3240.24      4264.77  5373.0
+84077       WORLD WAR 2 GLIDERS ASSTD DESIGNS      AX        51125  0.95  5663.0      2705.06      3932.69  4671.0
+85099B                JUMBO BAG RED RETROSPOT      AX        46828  0.56  1960.0      1457.35      3602.15  3258.0
+85123A     WHITE HANGING HEART T-LIGHT HOLDER      AX        35832  0.82  1432.0      1634.44      2756.31  3013.0
+84879           ASSORTED COLOUR BIRD ORNAMENT      AX        34702  0.84  1852.0      1624.28      2669.38  2959.0
+21212         PACK OF 72 RETROSPOT CAKE CASES      AX        34322  0.61  3093.0      1161.09      2640.15  2481.0
+23084                      RABBIT NIGHT LIGHT      AZ        30739  2.18  1504.0      3735.41      2364.54  4918.0
+22616              PACK OF 12 LONDON TISSUES       AX        25107  1.00  3626.0      1396.12      1931.31  2362.0
+22492                 MINI PAINT SET VINTAGE       AX        24367  0.79  2467.0      1081.31      1874.38  2018.0
+21977      PACK OF 60 PINK PAISLEY CAKE CASES      AX        24181  0.99  2810.0      1338.34      1860.08  2268.0

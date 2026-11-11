@@ -1,0 +1,128 @@
+--- FORECASTING SETUP ---
+SKUs                  : 2,699
+Weeks of history      : 104 (2009-11-30/2009-12-06 to 2011-12-05/2011-12-11)
+Training weeks        : 92
+Hold-out weeks        : 12
+The hold-out is the final 12 weeks. No model sees it during fitting, so
+the error reported below is out-of-sample.
+
+--- SEASONAL INDEX ESTIMATED FROM TRAINING DATA ---
+Index range           : 0.40 to 1.67
+Peak ISO week         : 46
+Hold-out index range  : 1.22 to 1.67
+The hold-out sits on the rising side of the Christmas curve, which is
+exactly where a flat forecast does its worst damage.
+
+--- OUT-OF-SAMPLE ACCURACY, ALL SKUs ---
+                Mean MAE  Mean RMSE  Median MASE  Mean bias  % SKUs beating naive
+Naive             44.964     59.871        1.047     11.299                47.536
+Mean              44.874     59.239        1.012     22.073                48.425
+MA-4              38.921     53.536        0.974     17.748                50.241
+MA-8              39.647     53.967        0.977     17.727                50.278
+SES               38.883     53.382        0.950     14.203                51.278
+Croston-SBA       40.238     55.078        1.033     20.299                48.129
+SES x seasonal    44.490     56.947        1.118     -2.682                43.572
+
+MASE below 1 means the method beats a last-week-carried-forward guess.
+
+--- REVENUE-WEIGHTED MASE ---
+SES               2.447
+MA-4              2.518
+SES x seasonal    2.595
+Croston-SBA       2.675
+MA-8              2.716
+Naive             2.719
+Mean              3.195
+
+Best single method on revenue-weighted MASE: SES
+
+--- MODEL SELECTED PER SKU (lowest hold-out RMSE) ---
+                SKUs     %
+SES x seasonal   585  21.7
+Mean             540  20.0
+Naive            518  19.2
+MA-4             296  11.0
+Croston-SBA      269  10.0
+MA-8             267   9.9
+SES              224   8.3
+
+Selection by ABC class (%):
+col_0  Croston-SBA  MA-4  MA-8  Mean  Naive   SES  SES x seasonal
+ABC                                                              
+A              8.1  10.1   9.5  16.2   16.8  10.3            29.0
+B             10.5  10.8   9.1  20.6   19.0   8.0            22.0
+C             10.8  11.6  10.8  22.0   20.9   7.2            16.7
+
+Selection by XYZ class (%):
+col_0  Croston-SBA  MA-4  MA-8  Mean  Naive   SES  SES x seasonal
+XYZ                                                              
+X             12.1   9.2  11.0  17.0   12.7  11.2            26.8
+Y              8.5  14.1  10.3  19.4   15.7   7.9            24.1
+Z              9.3   9.6   8.3  23.7   29.2   5.8            14.1
+
+--- SAFETY STOCK SIZED ON DEMAND SPREAD vs ON FORECAST ERROR ---
+Sized on demand std deviation : GBP 303,750
+Sized on forecast error (RMSE): GBP 303,358
+Reduction                     : GBP 392 (0.1%)
+Annual holding cost released  : GBP 98
+
+The two numbers differ because demand variability and forecast error are
+not the same quantity. Whatever structure the forecast captures - a trend,
+a seasonal lift, a steady average - does not need to be buffered against.
+
+By ABC class:
+     OnDemandStd  OnForecastError  Reduction  Reduction%
+ABC                                                     
+A       239331.0         238875.0      456.0         0.0
+B        49189.0          51141.0    -1952.0        -4.0
+C        15229.0          13341.0     1888.0        12.0
+
+Forecast RMSE as a share of demand std, median: 0.92
+SKUs where forecasting helps (ratio < 1): 1,498 (55.5%)
+SKUs where it does not (ratio >= 1)     : 1,201 (44.5%)
+For the second group the honest recommendation is to keep the simple
+variability-based buffer. A forecast that is worse than the spread it is
+meant to predict should not be driving a reorder point.
+
+--- THE SAME TEST AT AGGREGATE PLANNING LEVEL ---
+Nothing above says forecasting is worthless. It says forecasting a single
+intermittent SKU is hard. Buyers do not only plan SKU by SKU - they commit
+container space, warehouse labour and working capital against the total.
+So the same methods are re-run on total weekly units, where the pooled
+series is far smoother.
+                     MAE      RMSE  MAPE%  MASE      Bias
+Method                                                   
+SES x seasonal  16574.24  19697.96  11.69  0.82   4732.60
+Naive           30994.25  35609.08  19.78  1.54  30495.42
+SES             45259.09  48851.01  29.51  2.24  45259.09
+MA-4            47900.67  51307.99  31.33  2.38  47900.67
+Mean            59576.14  62348.64  39.38  2.95  59576.14
+
+Best method at aggregate level: SES x seasonal
+Seasonal MAPE 11.7% against 19.8% for the best flat method.
+This is the honest shape of the result: seasonality is a property of the
+business, not of any individual gift item, so it is recoverable from the
+pooled series and largely lost in the noise of a single SKU.
+
+--- AGGREGATE WEEKLY DEMAND ---
+Mean weekly units     : 94,855
+Peak week             : 2011-11-14/2011-11-20 at 175,324 units
+Trough week           : 2009-12-21/2009-12-27 at 20,203 units
+Peak-to-mean ratio    : 1.85
+
+Seasonal index by calendar month (100 = average month):
+Date
+1      83.0
+2      71.0
+3      97.0
+4      72.0
+5      85.0
+6      85.0
+7      79.0
+8      96.0
+9     124.0
+10    133.0
+11    158.0
+12    117.0
+The Sep-Nov build-up is the Christmas stocking cycle. A buyer who ignores
+it will be short in November and long in January.
